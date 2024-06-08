@@ -1,0 +1,87 @@
+/* Navbar.css */
+
+.navbar {
+    background-color: #D8CAB4;
+  }
+  
+  .navbar-logo {
+    height: 32px;
+    width: auto;
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 96px;
+    margin: 0 auto;
+    padding: 0 16px;
+    text-align: center;
+    color: black;
+  }
+  
+  .navbar-menu {
+    display: none;
+  }
+  
+  .navbar-menu.active {
+    display: flex;
+  }
+  
+  .navbar-menu-item {
+    padding: 16px;
+    margin: 8px;
+    cursor: pointer;
+    border-radius: 16px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .navbar-menu-item:hover {
+    background-color: #000000;
+    color: white;
+  }
+  
+  .navbar-toggle {
+    display: block;
+    cursor: pointer;
+  }
+  
+  .navbar-toggle-icon {
+    font-size: 20px;
+  }
+  
+  .navbar-mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    border-right: 1px solid #2D2D2D;
+    background-color: #000300;
+    transition: left 0.5s;
+  }
+  
+  .navbar-mobile-menu.hidden {
+    left: -100%;
+  }
+  
+  .navbar-mobile-menu h1 {
+    margin: 16px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00df9a;
+  }
+  
+  .navbar-mobile-menu-item {
+    padding: 16px;
+    border-bottom: 1px solid #4A4A4A;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .navbar-mobile-menu-item:hover {
+    background-color: #000000;
+    color: white;
+  }
+  
