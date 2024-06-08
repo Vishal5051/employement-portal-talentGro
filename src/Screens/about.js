@@ -1,7 +1,13 @@
-const About = () => {
-    return ( 
-        <h1>About</h1>
-     );
-}
- 
-export default About;
+import React from 'react';
+
+const about = () => {
+    return (
+        <div>
+            <div className='flex items-center justify-center'>
+                About Page 
+            </div>
+        </div>
+    );
+};
+
+export default about;

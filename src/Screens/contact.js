@@ -1,7 +1,13 @@
-const Contact = () => {
-    return ( 
-        <h1>Contactus</h1>
-     );
-}
- 
-export default Contact ;
+import React from 'react';
+
+const contact = () => {
+    return (
+        <div>
+            <div className='flex items-center justify-center'>
+                Contact Page 
+            </div>
+        </div>
+    );
+};
+
+export default contact;

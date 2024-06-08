@@ -1,7 +1,13 @@
+import React from 'react';
+
 const Login = () => {
     return (
-        <h1>Login</h1>
-      );
-}
- 
+        <div>
+            <div className='flex justify-center items-center'>
+                Login Page
+            </div>
+        </div>
+    );
+};
+
 export default Login;
