@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar"
 import Home from "./Screens/Home";
 import About from "./Screens/about";
 import Contact from "./Screens/contact";
@@ -11,7 +10,6 @@ import Signup from "./Screens/Signup";
 function App() {
     return (
         <div className="w-screen h-screen flex-col ">
-            <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />

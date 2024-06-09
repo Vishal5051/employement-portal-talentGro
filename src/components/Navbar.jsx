@@ -5,7 +5,7 @@ import "./Navbar.css"
 
 const Navbar = () => {
     return (
-        <div className='w-full flex justify-between items-center px-6 h-[70px] bg-primary-color border-b-2'>
+        <div className='w-full flex justify-between items-center px-6 h-[70px] bg-primary-color border-b-2 z-50'>
             <NavLink to="/">
                 <img src={logo} alt="Logo" loading="lazy" style={{ height: '60px', width: 'auto' }} />
 

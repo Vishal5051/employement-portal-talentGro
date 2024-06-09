@@ -4,6 +4,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import 'react-toastify/dist/ReactToastify.css';
 import "../CSS/Login.css"
+import LoginImage from "../assets/login_Image.png"
+import Navbar from "../components/Navbar"
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +30,8 @@ export default function Login() {
     }
 
     return (
-        <div className="w-full h-full bg-primary-color overflow-hidden">
+        <div className="w-full h-full">
+            <Navbar />
             <div className="flex-center">
                 <div className="form-container">
                     <div className="form-content">
@@ -85,6 +88,9 @@ export default function Login() {
                             </p>
                         </form>
                     </div>
+                </div>
+                <div>
+                    <img src={LoginImage} alt="" className='login-img'/>
                 </div>
             </div>
             <ToastContainer />
