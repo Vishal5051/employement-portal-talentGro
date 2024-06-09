@@ -59,7 +59,7 @@ body {
 
 .input {
     background-color: #f9fafb;
-    border: 1px solid #d1d5db;
+    border: 2px solid #d1d5db;
     color: #1a202c;
     border-radius: 0.5rem;
     font-size: 0.875rem;
@@ -69,44 +69,55 @@ body {
 
 .input:focus {
     outline: none;
-    border-color: #e46e40;
-    box-shadow: 0 0 0 2px rgba(228, 110, 64, 0.5);
+    border-color: #e95014;
 }
 
 .eye-icon {
     position: absolute;
     right: 1rem;
-    top: 3.2rem;
+    top: 3rem;
     cursor: pointer;
+    transition: background-color 0.4s;
+    padding: 3px 4px;
+    border-radius: 45px;
+}
+
+.eye-icon:hover {
+    background-color: #f1bba5;
+    border-radius: 50px;
 }
 
 .button {
     width: 100%;
-    background-color: #e46e40;
+    background-color: #f34c0a;
     color: white;
     font-weight: medium;
     border-radius: 0.5rem;
-    font-size: 0.875rem;
-    padding: 0.625rem;
+    font-size: 1.3rem;
+    padding: 0.225rem;
     text-align: center;
-    transition: background-color 0.2s;
+    border: 2px solid #df4508;
+    transition: background-color 0.4s;
 }
 
 .button:hover {
-    background-color: #e0774e;
+    color: #df4508;
+    background-color: transparent;
+    font-weight: 700;
 }
 
 .signup-link {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: light;
 }
 
 .signup-link a {
     font-weight: medium;
-    color: #e46e40;
+    color: var(--orange-color);
     text-decoration: none;
 }
 
 .signup-link a:hover {
+    font-weight: 600;
     text-decoration: underline;
 }

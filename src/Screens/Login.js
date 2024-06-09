@@ -28,7 +28,7 @@ export default function Login() {
     }
 
     return (
-        <div className="w-full h-full bg-[#e46e40] overflow-hidden">
+        <div className="w-full h-full bg-primary-color overflow-hidden">
             <div className="flex-center">
                 <div className="form-container">
                     <div className="form-content">
@@ -69,7 +69,7 @@ export default function Login() {
                                         className="input"
                                         required />
                                     <span onClick={() => setShowPassword(!showPassword)} className="eye-icon">
-                                        {showPassword ? <AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF' /> : <AiOutlineEye fontSize={24} fill='#AFB2BF' />}
+                                        {showPassword ? <AiOutlineEyeInvisible fontSize={24} fill='#e95014' /> : <AiOutlineEye fontSize={24} fill='#e95014' />}
                                     </span>
                                 </label>
                             </div>

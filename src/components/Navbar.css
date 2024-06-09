@@ -21,13 +21,13 @@
 
 .login-button:hover {
     background-color: white;
-    color: #e46e40; /* Orange color */
+    color: var(--orange-color); 
 }
 
 .signup-button {
     padding: 0.5rem 1rem;
     border: 1px solid white;
-    color: #e46e40;
+    color: var(--orange-color);
     background-color: white;
     border-radius: 0.25rem;
     text-transform: uppercase;
