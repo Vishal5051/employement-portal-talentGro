@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from "react-hot-toast";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
-import 'react-toastify/dist/ReactToastify.css';
 import "../CSS/Login.css"
 import LoginImage from "../assets/login_Image.png"
 import Navbar from "../components/Navbar"
 
 export default function Login() {
+    // State to manage visibility of password field
     const [showPassword, setShowPassword] = useState(false);
+    // Hook to navigate to different routes
     const navigate = useNavigate();
 
+    // State to manage form data
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
 
+    // Handler to update form data on input change
     function changeHandler(event) {
         setFormData(prev => ({
             ...prev,
@@ -23,14 +26,18 @@ export default function Login() {
         }));
     }
 
+    // Handler to handle form submission
     function submitHandler(e) {
         e.preventDefault();
+        // Display success message
         toast.success("Login Success");
-        // navigate("/");
+        // Navigate to home page after successful login
+        navigate("/");
     }
 
     return (
         <div className="w-full h-full">
+            {/* Navbar component */}
             <Navbar />
             <div className="flex-center">
                 <div className="form-container">
@@ -39,6 +46,7 @@ export default function Login() {
                             Sign in to your account
                         </h1>
 
+                        {/* Login form */}
                         <form onSubmit={submitHandler} className="form">
                             <div className='label'>
                                 <label className="label-text">
@@ -77,8 +85,7 @@ export default function Login() {
                                 </label>
                             </div>
 
-                            <button
-                                className="button">
+                            <button className="button">
                                 Sign in
                             </button>
 
@@ -90,12 +97,10 @@ export default function Login() {
                     </div>
                 </div>
                 <div>
-                    <img src={LoginImage} alt="" className='login-img'/>
+                    {/* Login image */}
+                    <img src={LoginImage} alt="" className='login-img' />
                 </div>
             </div>
-            <ToastContainer />
         </div>
     )
 }
-
-
