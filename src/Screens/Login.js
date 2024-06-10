@@ -36,40 +36,40 @@ export default function Login() {
     }
 
     return (
-        <div className="w-full h-full">
+        <div className="login-w-full login-h-full">
             {/* Navbar component */}
             <Navbar />
-            <div className="flex-center">
-                <div className="form-container">
-                    <div className="form-content">
-                        <h1 className="form-title">
+            <div className="login-flex-center">
+                <div className="login-form-container">
+                    <div className="login-form-content">
+                        <h1 className="login-form-title">
                             Sign in to your account
                         </h1>
 
                         {/* Login form */}
-                        <form onSubmit={submitHandler} className="form">
-                            <div className='label'>
-                                <label className="label-text">
+                        <form onSubmit={submitHandler} className="login-form">
+                            <div className='login-label'>
+                                <label className="login-label-text">
                                     <p>
                                         Your email
-                                        <sup className="text-pink-600">*</sup>
+                                        <sup className="login-text-pink-600">*</sup>
                                     </p>
                                     <input
                                         onChange={changeHandler}
                                         type="email"
                                         name="email"
                                         value={formData.email}
-                                        className="input"
+                                        className="login-input"
                                         placeholder="John@gmail.com"
                                         required />
                                 </label>
                             </div>
 
-                            <div className='label relative'>
-                                <label htmlFor="password" className="label-text">
+                            <div className='login-label login-relative'>
+                                <label htmlFor="password" className="login-label-text relative">
                                     <p>
                                         Password
-                                        <sup className="text-pink-600">*</sup>
+                                        <sup className="login-text-pink-600">*</sup>
                                     </p>
                                     <input
                                         onChange={changeHandler}
@@ -77,19 +77,19 @@ export default function Login() {
                                         value={formData.password}
                                         name="password"
                                         placeholder="••••••••"
-                                        className="input"
+                                        className="login-input"
                                         required />
-                                    <span onClick={() => setShowPassword(!showPassword)} className="eye-icon">
+                                    <span onClick={() => setShowPassword(!showPassword)} className="login-eye-icon">
                                         {showPassword ? <AiOutlineEyeInvisible fontSize={24} fill='#e95014' /> : <AiOutlineEye fontSize={24} fill='#e95014' />}
                                     </span>
                                 </label>
                             </div>
 
-                            <button className="button">
+                            <button className="login-signin-button">
                                 Sign in
                             </button>
 
-                            <p className="signup-link">
+                            <p className="login-signup-link">
                                 Don’t have an account yet?
                                 <NavLink to="/signup"> Sign up</NavLink>
                             </p>

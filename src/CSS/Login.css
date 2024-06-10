@@ -6,9 +6,8 @@ body {
     padding: 0;
 }
 
-.flex-center {
+.login-flex-center {
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -21,7 +20,7 @@ body {
     margin-left: 2rem;
 }
 
-.form-container {
+.login-form-container {
     width: 100%;
     background-color: white;
     color: black;
@@ -32,7 +31,7 @@ body {
     margin-top: 0;
 }
 
-.form-title {
+.login-form-title {
     font-size: 1.25rem;
     font-weight: bold;
     line-height: 1.5;
@@ -41,17 +40,17 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.form {
+.login-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.label {
+.login-label {
     text-align: left;
 }
 
-.label-text {
+.login-label-text {
     display: flex;
     flex-direction: column;
     font-size: 1rem;
@@ -60,7 +59,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.input {
+.login-input {
     background-color: #f9fafb;
     border: 2px solid #d1d5db;
     color: #1a202c;
@@ -70,12 +69,12 @@ body {
     width: 100%;
 }
 
-.input:focus {
+.login-input:focus {
     outline: none;
     border-color: #e95014;
 }
 
-.eye-icon {
+.login-eye-icon {
     position: absolute;
     right: 1rem;
     top: 3rem;
@@ -85,12 +84,12 @@ body {
     border-radius: 45px;
 }
 
-.eye-icon:hover {
+.login-eye-icon:hover {
     background-color: #f1bba5;
     border-radius: 50px;
 }
 
-.button {
+.login-signin-button {
     width: 100%;
     background-color: #f34c0a;
     color: white;
@@ -103,24 +102,24 @@ body {
     transition: background-color 0.4s;
 }
 
-.button:hover {
+.login-signin-button:hover {
     color: #df4508;
     background-color: transparent;
     font-weight: 700;
 }
 
-.signup-link {
+.login-signup-link {
     font-size: 1rem;
     font-weight: light;
 }
 
-.signup-link a {
+.login-signup-link a {
     font-weight: medium;
     color: var(--orange-color);
     text-decoration: none;
 }
 
-.signup-link a:hover {
+.login-signup-link a:hover {
     font-weight: 600;
     text-decoration: underline;
 }
