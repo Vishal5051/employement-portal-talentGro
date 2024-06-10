@@ -40,12 +40,14 @@ git pull upstream main
 git checkout -b <YOUR_BRANCH_NAME>
 ```
 
--   Install node_modules
+- Install node_modules
+
 ```
 npm i 
 ```
 
--   Run the Website
+- Run the Website
+
 ```
 npm run start
 ```
@@ -85,3 +87,9 @@ git push -u origin <your_branch_name>
 17. Add an appropriate title and description to your PR explaining your changes.
 
 18. Click on `Create pull request`.
+
+# Contributors
+
+<a href="https://github.com/kushalkumar1362/employement-portal-talentGro/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kushalkumar1362/employement-portal-talentGro" alt="Contributors" />
+</a>
