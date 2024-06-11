@@ -4,9 +4,10 @@ import { toast } from "react-hot-toast";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import "../CSS/Login.css"
 import LoginImage from "../assets/login_Image.png"
-import Navbar from "../components/Navbar"
 
-export default function Login() {
+
+export default function Login(props) {
+    const setIsLoggedIn = props.setIsLoggedIn;
     // State to manage visibility of password field
     const [showPassword, setShowPassword] = useState(false);
     // Hook to navigate to different routes
@@ -29,6 +30,7 @@ export default function Login() {
     // Handler to handle form submission
     function submitHandler(e) {
         e.preventDefault();
+        setIsLoggedIn(true);
         // Display success message
         toast.success("Login Success");
         // Navigate to home page after successful login
@@ -37,8 +39,7 @@ export default function Login() {
 
     return (
         <div className="login-w-full login-h-full">
-            {/* Navbar component */}
-            <Navbar />
+
             <div className="login-flex-center">
                 <div className="login-form-container">
                     <div className="login-form-content">

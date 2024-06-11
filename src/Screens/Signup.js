@@ -4,7 +4,6 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import "../CSS/Signup.css"
 import SignupImage from "../assets/signup-image.png"
-import Navbar from "../components/Navbar"
 
 export default function Signup() {
     // State to manage visibility of password fields
@@ -47,7 +46,6 @@ export default function Signup() {
     return (
         <div className="w-full h-full">
             {/* Navbar component */}
-            <Navbar />
             <div className="flex-center-signup">
                 <div>
                     {/* Signup image */}
