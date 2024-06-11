@@ -6,6 +6,7 @@ import "../CSS/Signup.css"
 import SignupImage from "../assets/signup-image.png"
 
 export default function Signup() {
+    const [accountType, setAccountType] = useState('student');
     // State to manage visibility of password fields
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -38,6 +39,7 @@ export default function Signup() {
             return;
         }
         console.log(formData);
+        console.log(accountType);
         toast.success("Account Created");
         // Navigate to login page after successful signup
         navigate("/login");
@@ -45,16 +47,32 @@ export default function Signup() {
 
     return (
         <div className="w-full h-full">
-            {/* Navbar component */}
             <div className="flex-center-signup">
                 <div>
                     {/* Signup image */}
                     <img src={SignupImage} alt="" className='login-img-signup' />
                 </div>
                 <div className="form-container-signup">
+                    {/* Account Type */}
+                    <div className="account-type-container">
+                        <button
+                            onClick={() => setAccountType("student")}
+                            className={`button ${accountType === "student" ? "button-student-active" : "button-student-inactive"
+                                }`}>
+                            Student
+                        </button>
+                        <button
+                            onClick={() => setAccountType("employer")}
+                            className={`button ${accountType === "employer" ? "button-employer-active" : "button-employer-inactive"
+                                }`}>
+                            Employer
+                        </button>
+                    </div>
                     <div className="form-content-signup">
                         <h1 className="form-title-signup">
-                            Register your account
+                            {
+                                accountType === "student" ? <span>Register your Student account</span> : <span>Register your Employer account</span>
+                            }
                         </h1>
 
                         {/* Signup form */}
