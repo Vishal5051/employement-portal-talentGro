@@ -77,7 +77,7 @@ export default function Signup() {
 
                         {/* Signup form */}
                         <form onSubmit={submitHandler} className="form-signup">
-                            <div className="flex gap-x-4">
+                            <div className="name-signup">
                                 <div className='label-signup'>
                                     <label className="label-text-signup">
                                         <p>
@@ -130,7 +130,7 @@ export default function Signup() {
                                 </label>
                             </div>
 
-                            <div className="flex gap-x-4">
+                            <div className="name-signup">
                                 <div className='label-signup'>
                                     <label htmlFor="password" className="label-text-signup relative">
                                         <p>

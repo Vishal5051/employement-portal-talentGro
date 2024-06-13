@@ -123,3 +123,19 @@ body {
     font-weight: 600;
     text-decoration: underline;
 }
+
+/* Styles for phones */
+@media (max-width: 767.98px) {
+    .login-flex-center{
+
+        margin: 0 2rem 0 2rem;
+    }
+
+    .login-form-container {
+        max-width: 100%;
+    }
+
+    .login-img {
+        display: none;
+    }
+}

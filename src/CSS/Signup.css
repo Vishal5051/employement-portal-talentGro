@@ -86,6 +86,11 @@ body {
     flex-direction: column;
 }
 
+.name-signup {
+    display: flex;
+    column-gap: 1rem;
+}
+
 .label-signup {
     text-align: left;
     width: 100%;
@@ -97,7 +102,7 @@ body {
     font-size: 1rem;
     font-weight: medium;
     color: #1a202c;
-    margin:  0.5rem 0;
+    margin: 0.5rem 0;
 }
 
 .input-signup {
@@ -165,4 +170,31 @@ body {
 .login-link-signup a:hover {
     font-weight: 600;
     text-decoration: underline;
+}
+
+/* Styles for phones */
+@media (max-width: 767.98px) {
+    .flex-center-signup {
+        margin: 0 2rem 0 2rem;
+    }
+
+    .form-container-signup {
+        max-width: 100%;
+    }
+
+    .login-img-signup {
+        display: none;
+    }
+
+    .form-content-signup {
+        width: 100%;
+        padding: 0 1rem 0 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .name-signup {
+        display: block;
+        column-gap: 0;
+    }
 }

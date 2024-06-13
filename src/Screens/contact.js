@@ -88,6 +88,7 @@ const Contact = () => {
                                     placeholder='Username'
                                     value={formData.name}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="contact-input-container">
@@ -98,6 +99,7 @@ const Contact = () => {
                                     placeholder='Email'
                                     value={formData.email}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="contact-input-container">
@@ -116,6 +118,7 @@ const Contact = () => {
                                     placeholder='Message'
                                     value={formData.message}
                                     onChange={handleChange}
+                                    required
                                 ></textarea>
                             </div>
                             <input type="submit" value="Send" className="contact-btn" />
