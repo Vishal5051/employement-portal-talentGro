@@ -99,9 +99,11 @@
     border-radius: 5px;
     transition: 0.3s;
 }
+
 .contact-input::placeholder {
     color: #fff;
 }
+
 textarea.contact-input {
     padding: 0.8rem 1.2rem;
     min-height: 150px;
@@ -206,11 +208,6 @@ textarea.contact-input {
     color: #e95014;
 }
 
-.contact-text {
-    color: #333;
-    margin: 1rem 0 1rem 0;
-}
-
 .contact-information {
     display: flex;
     color: #555;
@@ -220,10 +217,25 @@ textarea.contact-input {
     font-size: 1rem;
 }
 
+.contact-information a {
+    display: flex;
+    color: #555;
+    margin: 0.7rem 0;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
 .contact-information .contact-icon {
     margin-top: -17px;
     margin-right: 8px;
     color: #c64714;
+}
+
+.contact-information a :hover{
+    color: #c64714;
+    font-weight: 600;
 }
 
 .contact-info:before {
@@ -276,62 +288,35 @@ textarea.contact-input {
     color: #e95014;
 }
 
-@media (max-width: 850px) {
-    .contact-form {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-info:before {
-        bottom: initial;
-        top: -75px;
-        right: 65px;
-        transform: scale(0.95);
-    }
-
-    .contact-contact-form:before {
-        top: -13px;
-        left: initial;
-        right: 70px;
-    }
-
+/* Styles for phones */
+@media (max-width: 767.98px) {
     .contact-big-circle {
         bottom: 75%;
         transform: scale(0.9) translate(-40%, 30%);
         right: 50%;
     }
 
-    .contact-text {
-        margin: 1rem 0 1.5rem 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .contact-container {
-        padding: 1.5rem;
+    .contact-form-container {
+        grid-template-columns: 1fr;
     }
 
     .contact-info:before {
-        display: none;
+        bottom: initial;
+        top: -52px;
+        right: 65px;
+        transform: scale(0.95);
     }
+}
 
+@media (max-width: 575.98px) {
     .contact-big-circle {
         display: none;
     }
 
-    .contact-text,
-    .contact-information p {
-        font-size: 0.8rem;
-    }
-
-    .contact-title {
-        font-size: 1.15rem;
-    }
-
-    .contact-input {
-        padding: 0.45rem 1.2rem;
-    }
-
-    .contact-btn {
-        padding: 0.45rem 1.2rem;
+    .contact-info:before {
+        bottom: initial;
+        top: -52px;
+        right: 26px;
+        transform: scale(0.95);
     }
 }
