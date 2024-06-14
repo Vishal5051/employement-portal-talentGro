@@ -79,7 +79,7 @@ const Contact = () => {
                         <span className="contact-circle contact-one"></span>
                         <span className="contact-circle contact-two"></span>
                         <form onSubmit={handleSubmit} className="contact-form">
-                            <h3 className="contact-title">c us</h3>
+                            <h3 className="contact-title">Contact us</h3>
                             <div className="contact-input-container">
                                 <input
                                     type="text"
