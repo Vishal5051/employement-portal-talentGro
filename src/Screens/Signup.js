@@ -2,25 +2,21 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { toast } from "react-hot-toast";
-import "../CSS/Signup.css"
-import SignupImage from "../assets/signup-image.png"
+import "../CSS/Signup.css";
+import SignupImage from "../assets/signup-image.png";
 
 export default function Signup() {
-    const [accountType, setAccountType] = useState('student');
-    // State to manage visibility of password fields
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPass, setShowConfirmPass] = useState(false);
-    // Hook to navigate to different routes
-    const navigate = useNavigate();
-
-    // State to manage form data
+    const [accountType, setAccountType] = useState('student'); // State to manage account type (student or employer)
+    const [showPassword, setShowPassword] = useState(false); // State to manage visibility of password field
+    const [showConfirmPass, setShowConfirmPass] = useState(false); // State to manage visibility of confirm password field
+    const navigate = useNavigate(); // Hook to navigate to different routes
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         email: "",
         password: "",
         confirmPassword: "",
-    });
+    }); // State to manage form data
 
     // Handler to update form data on input change
     function changeHandler(event) {
@@ -31,58 +27,75 @@ export default function Signup() {
     }
 
     // Handler to handle form submission
-    function submitHandler(e) {
-        e.preventDefault();
+    async function submitHandler(e) {
+        e.preventDefault(); // Prevent default form submission behavior
+
         // Check if passwords match
         if (formData.password !== formData.confirmPassword) {
             toast.error("Passwords do not match");
             return;
         }
-        console.log(formData);
-        console.log(accountType);
-        toast.success("Account Created");
-        // Navigate to login page after successful signup
-        navigate("/login");
-    }
 
+        // Create a user object with form data
+        const user = {
+            userType: accountType === "student" ? 1 : 2, // Assuming 1 for student and 2 for employer
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password,
+        };
+
+        try {
+            // Send POST request to backend to save user data
+            const response = await fetch("http://localhost:2003/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(user), // Convert user object to JSON string
+            });
+
+            const data = await response.json(); // Parse JSON response from backend
+
+            // Handle response from backend
+            if (data.success) {
+                toast.success("Account Created");
+                navigate("/login"); // Navigate to login page after successful signup
+            } else {
+                toast.error(data.message || "Something went wrong");
+            }
+        } catch (error) {
+            toast.error("Failed to create account");
+        }
+    }
     return (
         <div className="w-full h-full">
             <div className="flex-center-signup">
                 <div>
-                    {/* Signup image */}
                     <img src={SignupImage} alt="" className='login-img-signup' />
                 </div>
                 <div className="form-container-signup">
-                    {/* Account Type */}
                     <div className="account-type-container">
                         <button
                             onClick={() => setAccountType("student")}
-                            className={`button ${accountType === "student" ? "button-student-active" : "button-student-inactive"
-                                }`}>
+                            className={`button ${accountType === "student" ? "button-student-active" : "button-student-inactive"}`}>
                             Student
                         </button>
                         <button
                             onClick={() => setAccountType("employer")}
-                            className={`button ${accountType === "employer" ? "button-employer-active" : "button-employer-inactive"
-                                }`}>
+                            className={`button ${accountType === "employer" ? "button-employer-active" : "button-employer-inactive"}`}>
                             Employer
                         </button>
                     </div>
                     <div className="form-content-signup">
                         <h1 className="form-title-signup">
-                            {
-                                accountType === "student" ? <span>Register your Student account</span> : <span>Register your Employer account</span>
-                            }
+                            {accountType === "student" ? <span>Register your Student account</span> : <span>Register your Employer account</span>}
                         </h1>
-
-                        {/* Signup form */}
                         <form onSubmit={submitHandler} className="form-signup">
                             <div className="name-signup">
                                 <div className='label-signup'>
                                     <label className="label-text-signup">
-                                        <p>
-                                            First Name <sup className="text-pink-600">*</sup>
-                                        </p>
+                                        <p>First Name <sup className="text-pink-600">*</sup></p>
                                         <input
                                             onChange={changeHandler}
                                             type="text"
@@ -94,12 +107,9 @@ export default function Signup() {
                                         />
                                     </label>
                                 </div>
-
                                 <div className='label-signup'>
                                     <label className="label-text-signup">
-                                        <p>
-                                            Last Name <sup className="text-pink-600">*</sup>
-                                        </p>
+                                        <p>Last Name <sup className="text-pink-600">*</sup></p>
                                         <input
                                             onChange={changeHandler}
                                             name="lastName"
@@ -112,13 +122,9 @@ export default function Signup() {
                                     </label>
                                 </div>
                             </div>
-
                             <div className='label-signup'>
                                 <label className="label-text-signup">
-                                    <p>
-                                        Your email
-                                        <sup className="text-pink-600">*</sup>
-                                    </p>
+                                    <p>Your email <sup className="text-pink-600">*</sup></p>
                                     <input
                                         onChange={changeHandler}
                                         type="email"
@@ -129,14 +135,10 @@ export default function Signup() {
                                         required />
                                 </label>
                             </div>
-
                             <div className="name-signup">
                                 <div className='label-signup'>
                                     <label htmlFor="password" className="label-text-signup relative">
-                                        <p>
-                                            Password
-                                            <sup className="text-pink-600">*</sup>
-                                        </p>
+                                        <p>Password <sup className="text-pink-600">*</sup></p>
                                         <input
                                             onChange={changeHandler}
                                             type={showPassword ? "text" : "password"}
@@ -150,13 +152,9 @@ export default function Signup() {
                                         </span>
                                     </label>
                                 </div>
-
-                                <div className='label-signup '>
+                                <div className='label-signup'>
                                     <label htmlFor="password" className="label-text-signup relative">
-                                        <p>
-                                            Confirm Password
-                                            <sup className="text-pink-600">*</sup>
-                                        </p>
+                                        <p>Confirm Password <sup className="text-pink-600">*</sup></p>
                                         <input
                                             onChange={changeHandler}
                                             type={showConfirmPass ? "text" : "password"}
@@ -171,12 +169,7 @@ export default function Signup() {
                                     </label>
                                 </div>
                             </div>
-
-                            <button
-                                className="button-signup">
-                                Sign up
-                            </button>
-
+                            <button className="button-signup">Sign up</button>
                             <p className="login-link-signup">
                                 Already have an Account
                                 <NavLink to="/login"> Login </NavLink> here
