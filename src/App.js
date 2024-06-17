@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from "react-router-dom";
 import Home from "./Screens/Home";
 import About from "./Screens/about";
@@ -10,6 +10,14 @@ import Navbar from "./components/Navbar"
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [data, setData] = useState(null)
+        useEffect(() => {
+            fetch('http://localhost:2003/api')
+            .then(res => res.json())
+            // .then(data => console.log(data))
+            .then(data => setData(data.message))
+            .catch(err => console.log(err))
+        })
 
     return (
         <div className="w-screen h-screen flex-col ">
@@ -33,5 +41,9 @@ function App() {
         </div>
     );
 }
+
+// function  App() {
+// 
+// }
 
 export default App;

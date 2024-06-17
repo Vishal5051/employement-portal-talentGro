@@ -28,18 +28,42 @@ export default function Login(props) {
     }
 
     // Handler to handle form submission
-    function submitHandler(e) {
+    async function submitHandler(e) {
         e.preventDefault();
-        setIsLoggedIn(true);
-        // Display success message
-        toast.success("Login Success");
-        // Navigate to home page after successful login
-        navigate("/");
+
+        // Create a user object with form data
+        const user = {
+            email: formData.email,
+            password: formData.password,
+        };
+
+        try {
+            // Send POST request to backend to authenticate user
+            const response = await fetch("http://localhost:2003/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(user), // Convert user object to JSON string
+            });
+
+            const data = await response.json(); // Parse JSON response from backend
+
+            // Handle response from backend
+            if (data.success) {
+                toast.success("Login Success");
+                setIsLoggedIn(true); // Update login state
+                navigate("/"); // Navigate to home page after successful login
+            } else {
+                toast.error(data.message || "Invalid email or password");
+            }
+        } catch (error) {
+            toast.error("Failed to login");
+        }
     }
 
     return (
         <div className="login-w-full login-h-full">
-
             <div className="login-flex-center">
                 <div className="login-form-container">
                     <div className="login-form-content">
