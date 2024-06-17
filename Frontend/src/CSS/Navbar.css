@@ -1,64 +1,66 @@
 .nav-container {
-    padding-left: 0.5rem;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding-left: 0.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-button {
-    padding: 0.5rem 1rem;
-    border: 1px solid white;
-    color: white;
-    border-radius: 0.25rem;
-    text-transform: uppercase;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    transition: all 0.7s;
-    font-weight: 600;
-    font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid white;
+  color: white;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  transition: all 0.7s;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .login-button:hover {
-    background-color: white;
-    color: var(--orange-color);
+  background-color: white;
+  color: var(--orange-color);
 }
 
 .signup-button {
-    padding: 0.5rem 1rem;
-    border: 1px solid white;
-    color: var(--orange-color);
-    background-color: white;
-    border-radius: 0.25rem;
-    text-transform: uppercase;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    transition: all 0.7s;
-    font-weight: 600;
-    font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid white;
+  color: var(--orange-color);
+  background-color: white;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  transition: all 0.7s;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .signup-button:hover {
-    background-color: transparent;
-    color: white;
+  background-color: transparent;
+  color: white;
 }
 
 /* Custom tooltip styles */
 #my-logout-tooltip {
-    background-color: white;
-    color: var(--orange-color);
-    border-radius: 5px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    opacity: 1;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  color: var(--orange-color);
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 10000;
 }
 
 @media (max-width: 767.98px) {
-    .nav-small {
-        display: none;
-    }
-    .signup-button{
-        display: none;
-    }
+  .nav-small {
+    display: none;
+  }
+
+  .signup-button {
+    display: none;
+  }
 }

@@ -3,7 +3,7 @@ var mysql = require('mysql2');
 const cors = require('cors');
 const path = require('path');
 const app = express();
-
+require('dotenv').config()
 //  To manage and control web security 
 app.use(cors());
 //  processing json data  from incoming  http request 
@@ -22,10 +22,10 @@ app.listen(2003, () => {
 
 // connection to MySQL database 
 const db = mysql.createConnection({
-  host: "localhost",
+  host: process.env.HOST_NAME,
   user: "root",
-  password: "password",
-  database: "job_portal"
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE_NAME,
 })
 // Connect to the database
 db.connect(err => {
