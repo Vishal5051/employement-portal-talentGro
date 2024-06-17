@@ -1,10 +1,12 @@
 {
   "name": "my-app",
-  "version": "0.1.0",
-  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+    "start": "npm --prefix frontend start",
+    "build": "npm --prefix frontend run build"
+  }
 }
