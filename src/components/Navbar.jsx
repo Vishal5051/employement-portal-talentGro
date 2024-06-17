@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from "../assets/TalentGro-RetinaLogo.svg";
 import { NavLink } from 'react-router-dom';
-import "./Navbar.css"
+import "../CSS/Navbar.css"
 import { toast } from "react-hot-toast";
 import { BiLogOut } from "react-icons/bi";
 import { Tooltip as ReactTooltip } from "react-tooltip";
