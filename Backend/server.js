@@ -2,31 +2,32 @@ const express = require("express");
 var mysql = require('mysql2');
 const cors = require('cors');
 const path = require('path');
+const bcrypt = require('bcrypt');
 const app = express();
-require('dotenv').config()
-//  To manage and control web security 
+require('dotenv').config();
+
+// To manage and control web security 
 app.use(cors());
-//  processing json data  from incoming  http request 
-// insential for processing data send from client 
-app.use(express.json())
-app.use(express.static(path.join(__dirname, "public")))
+// Processing json data from incoming http request 
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/api", (req, res) => {
   return res.json({ message: " This is form backend" });
-})
+});
 
 app.listen(2003, () => {
   console.log("Server Started... ");
-})
+});
 
-
-// connection to MySQL database 
+// Connection to MySQL database 
 const db = mysql.createConnection({
-  host: process.env.HOST_NAME,
+  host: "localhost",
   user: "root",
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE_NAME,
-})
+  password: "",
+  database: "job_portal",
+});
+
 // Connect to the database
 db.connect(err => {
   if (err) {
@@ -36,10 +37,11 @@ db.connect(err => {
   console.log("Connected to the MySQL database...");
 });
 
-//============================================ Endpoint to handle user sign-up============================================
-app.post("/signup", (req, res) => {
+//============================================ Endpoint to handle user sign-up ============================================
+app.post("/signup", async (req, res) => {
   const { userType, firstName, lastName, email, password } = req.body;
 
+<<<<<<< HEAD
   const sql = "INSERT INTO user_signin (User_Type, First_name, Last_name, Email, Password) VALUES (?, ?, ?, ?, ?)";
   db.query(sql, [userType, firstName, lastName, email, password], (err, result) => {
     if (err) {
@@ -50,10 +52,28 @@ app.post("/signup", (req, res) => {
     console.log(req.body);
 
   });
+=======
+  try {
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const sql = "INSERT INTO user_signin (User_Type, First_name, Last_name, Email, Password) VALUES (?, ?, ?, ?, ?)";
+    db.query(sql, [userType, firstName, lastName, email, hashedPassword], (err, result) => {
+      if (err) {
+        console.error("Error inserting user into database:", err);
+        return res.status(500).json({ success: false, message: "Database error" });
+      }
+      res.json({ success: true, message: "User registered successfully" });
+      console.log(req.body);
+    });
+  } catch (error) {
+    console.error("Error hashing password:", error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+>>>>>>> f7d7c7375604c170193e41ed1525691e15e384ec
 });
 
-
-// ============================================Endpoint for handling user login============================================
+// ============================================ Endpoint for handling user login ============================================
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -62,9 +82,9 @@ app.post("/login", (req, res) => {
     return res.status(400).json({ success: false, message: "Email and password are required" });
   }
 
-  // Query to check if user exists with the provided email and password
-  const query = "SELECT * FROM user_signin WHERE Email = ? AND Password = ?";
-  db.query(query, [email, password], (err, results) => {
+  // Query to get user with the provided email
+  const query = "SELECT * FROM user_signin WHERE Email = ?";
+  db.query(query, [email], async (err, results) => {
     if (err) {
       console.error("Error executing query:", err);
       return res.status(500).json({ success: false, message: "Internal server error" });
@@ -72,11 +92,19 @@ app.post("/login", (req, res) => {
 
     // If user is found
     if (results.length > 0) {
-      return res.status(200).json({ success: true, message: "Login successful" });
+      const user = results[0];
+
+      // Compare the password with the hashed password
+      const passwordMatch = await bcrypt.compare(password, user.Password);
+
+      if (passwordMatch) {
+        return res.status(200).json({ success: true, message: "Login successful" });
+      } else {
+        return res.status(401).json({ success: false, message: "Invalid email or password" });
+      }
     } else {
       // If user is not found
       return res.status(401).json({ success: false, message: "Invalid email or password" });
     }
   });
 });
-

@@ -7,21 +7,16 @@ import LoginImage from "../assets/login_Image.png"
 import { FcGoogle } from "react-icons/fc";
 import { auth, provider, signInWithPopup } from "../components/firebase";
 
-
 export default function Login(props) {
   const setIsLoggedIn = props.setIsLoggedIn;
-  // State to manage visibility of password field
   const [showPassword, setShowPassword] = useState(false);
-  // Hook to navigate to different routes
   const navigate = useNavigate();
 
-  // State to manage form data
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  // Handler to update form data on input change
   function changeHandler(event) {
     setFormData(prev => ({
       ...prev,
@@ -29,33 +24,29 @@ export default function Login(props) {
     }));
   }
 
-  // Handler to handle form submission
   async function submitHandler(e) {
     e.preventDefault();
 
-    // Create a user object with form data
     const user = {
       email: formData.email,
       password: formData.password,
     };
 
     try {
-      // Send POST request to backend to authenticate user
       const response = await fetch("http://localhost:2003/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user), // Convert user object to JSON string
+        body: JSON.stringify(user),
       });
 
-      const data = await response.json(); // Parse JSON response from backend
+      const data = await response.json();
 
-      // Handle response from backend
       if (data.success) {
         toast.success("Login Success");
-        setIsLoggedIn(true); // Update login state
-        navigate("/"); // Navigate to home page after successful login
+        setIsLoggedIn(true);
+        navigate("/");
       } else {
         toast.error(data.message || "Invalid email or password");
       }
@@ -63,12 +54,13 @@ export default function Login(props) {
       toast.error("Failed to login");
     }
   }
+
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log(result.user);
-      toast.success("Signed in with Google");
-      navigate("/login");
+      toast.success("Account Created");
+      navigate("/login"); // Navigate to login page after successful signup
     } catch (error) {
       console.error(error);
       toast.error("Failed to sign in with Google");
@@ -83,7 +75,6 @@ export default function Login(props) {
               Sign in to your account
             </h1>
 
-            {/* Login form */}
             <form onSubmit={submitHandler} className="login-form">
               <div className='login-label'>
                 <label className="login-label-text">
@@ -125,7 +116,6 @@ export default function Login(props) {
               <button className="login-signin-button">
                 Sign in
               </button>
-
               <div className="flex w-full items-center justify-center my-4 gap-x-2">
                 <div className="h-[1px] w-full bg-primary-color"></div>
                 <p className="font-medium text-primary-color leading-[1.375rem] mb-0">
@@ -146,7 +136,6 @@ export default function Login(props) {
           </div>
         </div>
         <div>
-          {/* Login image */}
           <img src={LoginImage} alt="" className='login-img' />
         </div>
       </div>
