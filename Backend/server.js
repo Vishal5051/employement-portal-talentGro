@@ -48,7 +48,7 @@ app.post("/signup", (req, res) => {
     }
     res.json({ success: true, message: "User registered successfully" });
     console.log(req.body);
-    
+
   });
 });
 

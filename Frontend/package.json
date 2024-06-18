@@ -10,6 +10,7 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
+    "firebase": "^10.12.2",
     "framer-motion": "^11.2.10",
     "hamburger-react": "^2.5.1",
     "prettier": "^3.3.2",

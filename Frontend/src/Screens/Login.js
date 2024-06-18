@@ -4,128 +4,152 @@ import { toast } from "react-hot-toast";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import "../CSS/Login.css"
 import LoginImage from "../assets/login_Image.png"
+import { FcGoogle } from "react-icons/fc";
+import { auth, provider, signInWithPopup } from "../components/firebase";
 
 
 export default function Login(props) {
-    const setIsLoggedIn = props.setIsLoggedIn;
-    // State to manage visibility of password field
-    const [showPassword, setShowPassword] = useState(false);
-    // Hook to navigate to different routes
-    const navigate = useNavigate();
+  const setIsLoggedIn = props.setIsLoggedIn;
+  // State to manage visibility of password field
+  const [showPassword, setShowPassword] = useState(false);
+  // Hook to navigate to different routes
+  const navigate = useNavigate();
 
-    // State to manage form data
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-    });
+  // State to manage form data
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    // Handler to update form data on input change
-    function changeHandler(event) {
-        setFormData(prev => ({
-            ...prev,
-            [event.target.name]: event.target.value,
-        }));
+  // Handler to update form data on input change
+  function changeHandler(event) {
+    setFormData(prev => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  }
+
+  // Handler to handle form submission
+  async function submitHandler(e) {
+    e.preventDefault();
+
+    // Create a user object with form data
+    const user = {
+      email: formData.email,
+      password: formData.password,
+    };
+
+    try {
+      // Send POST request to backend to authenticate user
+      const response = await fetch("http://localhost:2003/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user), // Convert user object to JSON string
+      });
+
+      const data = await response.json(); // Parse JSON response from backend
+
+      // Handle response from backend
+      if (data.success) {
+        toast.success("Login Success");
+        setIsLoggedIn(true); // Update login state
+        navigate("/"); // Navigate to home page after successful login
+      } else {
+        toast.error(data.message || "Invalid email or password");
+      }
+    } catch (error) {
+      toast.error("Failed to login");
     }
-
-    // Handler to handle form submission
-    async function submitHandler(e) {
-        e.preventDefault();
-
-        // Create a user object with form data
-        const user = {
-            email: formData.email,
-            password: formData.password,
-        };
-
-        try {
-            // Send POST request to backend to authenticate user
-            const response = await fetch("http://localhost:2003/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(user), // Convert user object to JSON string
-            });
-
-            const data = await response.json(); // Parse JSON response from backend
-
-            // Handle response from backend
-            if (data.success) {
-                toast.success("Login Success");
-                setIsLoggedIn(true); // Update login state
-                navigate("/"); // Navigate to home page after successful login
-            } else {
-                toast.error(data.message || "Invalid email or password");
-            }
-        } catch (error) {
-            toast.error("Failed to login");
-        }
+  }
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result.user);
+      toast.success("Signed in with Google");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to sign in with Google");
     }
+  };
+  return (
+    <div className="login-w-full login-h-full">
+      <div className="login-flex-center">
+        <div className="login-form-container">
+          <div className="login-form-content">
+            <h1 className="login-form-title">
+              Sign in to your account
+            </h1>
 
-    return (
-        <div className="login-w-full login-h-full">
-            <div className="login-flex-center">
-                <div className="login-form-container">
-                    <div className="login-form-content">
-                        <h1 className="login-form-title">
-                            Sign in to your account
-                        </h1>
+            {/* Login form */}
+            <form onSubmit={submitHandler} className="login-form">
+              <div className='login-label'>
+                <label className="login-label-text">
+                  <p>
+                    Your email
+                    <sup className="login-text-pink-600">*</sup>
+                  </p>
+                  <input
+                    onChange={changeHandler}
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    className="login-input"
+                    placeholder="John@gmail.com"
+                    required />
+                </label>
+              </div>
 
-                        {/* Login form */}
-                        <form onSubmit={submitHandler} className="login-form">
-                            <div className='login-label'>
-                                <label className="login-label-text">
-                                    <p>
-                                        Your email
-                                        <sup className="login-text-pink-600">*</sup>
-                                    </p>
-                                    <input
-                                        onChange={changeHandler}
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        className="login-input"
-                                        placeholder="John@gmail.com"
-                                        required />
-                                </label>
-                            </div>
+              <div className='login-label login-relative'>
+                <label htmlFor="password" className="login-label-text relative">
+                  <p>
+                    Password
+                    <sup className="login-text-pink-600">*</sup>
+                  </p>
+                  <input
+                    onChange={changeHandler}
+                    type={showPassword ? "text" : "password"}
+                    value={formData.password}
+                    name="password"
+                    placeholder="••••••••"
+                    className="login-input"
+                    required />
+                  <span onClick={() => setShowPassword(!showPassword)} className="login-eye-icon">
+                    {showPassword ? <AiOutlineEyeInvisible fontSize={24} fill='#e95014' /> : <AiOutlineEye fontSize={24} fill='#e95014' />}
+                  </span>
+                </label>
+              </div>
 
-                            <div className='login-label login-relative'>
-                                <label htmlFor="password" className="login-label-text relative">
-                                    <p>
-                                        Password
-                                        <sup className="login-text-pink-600">*</sup>
-                                    </p>
-                                    <input
-                                        onChange={changeHandler}
-                                        type={showPassword ? "text" : "password"}
-                                        value={formData.password}
-                                        name="password"
-                                        placeholder="••••••••"
-                                        className="login-input"
-                                        required />
-                                    <span onClick={() => setShowPassword(!showPassword)} className="login-eye-icon">
-                                        {showPassword ? <AiOutlineEyeInvisible fontSize={24} fill='#e95014' /> : <AiOutlineEye fontSize={24} fill='#e95014' />}
-                                    </span>
-                                </label>
-                            </div>
+              <button className="login-signin-button">
+                Sign in
+              </button>
 
-                            <button className="login-signin-button">
-                                Sign in
-                            </button>
+              <div className="flex w-full items-center justify-center my-4 gap-x-2">
+                <div className="h-[1px] w-full bg-primary-color"></div>
+                <p className="font-medium text-primary-color leading-[1.375rem] mb-0">
+                  OR
+                </p>
+                <div className="h-[1px] w-full bg-primary-color"></div>
+              </div>
 
-                            <p className="login-signup-link">
-                                Don’t have an account yet?
-                                <NavLink to="/signup"> Sign up</NavLink>
-                            </p>
-                        </form>
-                    </div>
-                </div>
-                <div>
-                    {/* Login image */}
-                    <img src={LoginImage} alt="" className='login-img' />
-                </div>
-            </div>
+              <button onClick={signInWithGoogle} className='button-signup-google'>
+                <FcGoogle size={20} />
+                <span>Continue with google</span>
+              </button>
+              <p className="login-signup-link">
+                Don’t have an account yet?
+                <NavLink to="/signup"> Sign up</NavLink>
+              </p>
+            </form>
+          </div>
         </div>
-    )
+        <div>
+          {/* Login image */}
+          <img src={LoginImage} alt="" className='login-img' />
+        </div>
+      </div>
+    </div>
+  )
 }
