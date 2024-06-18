@@ -6,19 +6,18 @@ import "../CSS/Signup.css";
 import SignupImage from "../assets/signup-image.png";
 
 export default function Signup() {
-    const [accountType, setAccountType] = useState('student'); // State to manage account type (student or employer)
-    const [showPassword, setShowPassword] = useState(false); // State to manage visibility of password field
-    const [showConfirmPass, setShowConfirmPass] = useState(false); // State to manage visibility of confirm password field
-    const navigate = useNavigate(); // Hook to navigate to different routes
+    const [accountType, setAccountType] = useState('student');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPass, setShowConfirmPass] = useState(false);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         email: "",
         password: "",
         confirmPassword: "",
-    }); // State to manage form data
+    });
 
-    // Handler to update form data on input change
     function changeHandler(event) {
         setFormData(prev => ({
             ...prev,
@@ -26,19 +25,16 @@ export default function Signup() {
         }));
     }
 
-    // Handler to handle form submission
     async function submitHandler(e) {
-        e.preventDefault(); // Prevent default form submission behavior
+        e.preventDefault();
 
-        // Check if passwords match
         if (formData.password !== formData.confirmPassword) {
             toast.error("Passwords do not match");
             return;
         }
 
-        // Create a user object with form data
         const user = {
-            userType: accountType === "student" ? 1 : 2, // Assuming 1 for student and 2 for employer
+            userType: accountType === "student" ? 1 : 2,
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.email,
@@ -46,21 +42,19 @@ export default function Signup() {
         };
 
         try {
-            // Send POST request to backend to save user data
             const response = await fetch("http://localhost:2003/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(user), // Convert user object to JSON string
+                body: JSON.stringify(user),
             });
 
-            const data = await response.json(); // Parse JSON response from backend
+            const data = await response.json();
 
-            // Handle response from backend
             if (data.success) {
                 toast.success("Account Created");
-                navigate("/login"); // Navigate to login page after successful signup
+                navigate("/login");
             } else {
                 toast.error(data.message || "Something went wrong");
             }
@@ -68,6 +62,7 @@ export default function Signup() {
             toast.error("Failed to create account");
         }
     }
+
     return (
         <div className="w-full h-full">
             <div className="flex-center-signup">
