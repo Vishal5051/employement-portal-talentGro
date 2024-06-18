@@ -9,74 +9,77 @@ import { Routes } from "./Routes";
 import HamburgerMenu from './HamburgerMenu';
 
 const Navbar = (props) => {
-    const isLoggedIn = props.isLoggedIn;
-    const setIsLoggedIn = props.setIsLoggedIn;
-    return (
-        <div className='w-full flex justify-between items-center px-6 h-[70px] bg-primary-color border-b-2 z-50'>
-            <div>
-                <HamburgerMenu />
-            </div>
+  const isLoggedIn = props.isLoggedIn;
+  const setIsLoggedIn = props.setIsLoggedIn;
+  return (
+    <div className='w-full flex justify-between items-center px-6 h-[70px] bg-primary-color border-b-2 z-50'>
+      <div>
+        <HamburgerMenu />
+      </div>
+      <NavLink to="/">
+        <img src={logo} alt="Logo" loading="lazy" style={{ height: '60px', width: 'auto' }} />
+      </NavLink>
+
+      <nav className='nav-small'>
+        <ul className="flex justify-center items-center">
+          {Routes.map((route, index) => {
+            const { href, title } = route;
+            return (
+              <li key={index}>
+                <NavLink
+                  to={href}
+                  className="px-3 mx-4 text-[1.2rem] no-underline uppercase text-white"
+                >
+                  {title}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+
+      <div className="nav-container">
+        {!isLoggedIn && (
+          <NavLink to="/login">
+            <button className="login-button">
+              Login
+            </button>
+          </NavLink>
+        )}
+
+        {!isLoggedIn && (
+          <NavLink to="/signup">
+            <button className="signup-button">
+              Sign Up
+            </button>
+          </NavLink>
+        )}
+
+        {isLoggedIn && (
+          <div className='flex items-center justify-center gap-2 relative'>
             <NavLink to="/">
-                <img src={logo} alt="Logo" loading="lazy" style={{ height: '60px', width: 'auto' }} />
+              <button
+                onClick={() => {
+                  setIsLoggedIn(false);
+                  toast.success("Logout Sucessfully");
+                }}>
+                <BiLogOut data-tooltip-id="my-logout-tooltip" size={30} color='white' />
+                <ReactTooltip
+                  id="my-logout-tooltip"
+                  place="bottom"
+                  effect="solid"
+                  className="custom-tooltip"
+                  content="Logout"
+                />
+              </button>
             </NavLink>
-
-            <nav className='nav-small'>
-                <ul className="flex justify-center items-center">
-                    {Routes.map((route, index) => {
-                        const {href, title } = route;
-                        return (
-                            <li key={index}>
-                                <NavLink
-                                    to={href}
-                                    className="px-3 mx-4 text-[1.2rem] no-underline uppercase text-white"
-                                >
-                                    {title}
-                                </NavLink>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </nav>
-
-
-            <div className="nav-container">
-                {!isLoggedIn && (
-                    <NavLink to="/login">
-                        <button className="login-button">
-                            Login
-                        </button>
-                    </NavLink>
-                )}
-
-                {!isLoggedIn && (
-                    <NavLink to="/signup">
-                        <button className="signup-button">
-                            Sign Up
-                        </button>
-                    </NavLink>
-                )}
-
-                {isLoggedIn && (
-                    <NavLink to="/">
-                        <button
-                            onClick={() => {
-                                setIsLoggedIn(false);
-                                toast.success("Logout Sucessfully");
-                            }}>
-                            <BiLogOut data-tooltip-id="my-logout-tooltip" size={30} color='white' />
-                            <ReactTooltip
-                                id="my-logout-tooltip"
-                                place="bottom"
-                                effect="solid"
-                                className="custom-tooltip"
-                                content="Logout"
-                            />
-                        </button>
-                    </NavLink>
-                )}
-            </div>
-        </div>
-    );
+            <img src="https://api.dicebear.com/5.x/initials/svg?seed=$kushal%kumar" className= "avatar"alt="" />
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Navbar;

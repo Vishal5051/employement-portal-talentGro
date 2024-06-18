@@ -29,7 +29,6 @@ export default function Signup() {
 
   async function submitHandler(e) {
     e.preventDefault();
-
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match");
       return;
@@ -51,7 +50,6 @@ export default function Signup() {
         },
         body: JSON.stringify(user),
       });
-
       const data = await response.json();
 
       if (data.success) {

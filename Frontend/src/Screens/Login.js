@@ -31,7 +31,7 @@ export default function Login(props) {
       email: formData.email,
       password: formData.password,
     };
-
+    console.log(user);
     try {
       const response = await fetch("http://localhost:2003/login", {
         method: "POST",

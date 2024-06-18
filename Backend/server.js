@@ -24,7 +24,7 @@ app.listen(2003, () => {
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: process.env.PASSWORD,
   database: "job_portal",
 });
 
@@ -41,18 +41,6 @@ db.connect(err => {
 app.post("/signup", async (req, res) => {
   const { userType, firstName, lastName, email, password } = req.body;
 
-<<<<<<< HEAD
-  const sql = "INSERT INTO user_signin (User_Type, First_name, Last_name, Email, Password) VALUES (?, ?, ?, ?, ?)";
-  db.query(sql, [userType, firstName, lastName, email, password], (err, result) => {
-    if (err) {
-      console.error("Error inserting user into database:", err);
-      return res.status(500).json({ success: false, message: "Database error" });
-    }
-    res.json({ success: true, message: "User registered successfully" });
-    console.log(req.body);
-
-  });
-=======
   try {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -70,7 +58,7 @@ app.post("/signup", async (req, res) => {
     console.error("Error hashing password:", error);
     return res.status(500).json({ success: false, message: "Internal server error" });
   }
->>>>>>> f7d7c7375604c170193e41ed1525691e15e384ec
+
 });
 
 // ============================================ Endpoint for handling user login ============================================

@@ -55,6 +55,14 @@
   z-index: 10000;
 }
 
+.avatar {
+  cursor: pointer;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  margin-bottom: 8px;
+}
+
 @media (max-width: 767.98px) {
   .nav-small {
     display: none;
