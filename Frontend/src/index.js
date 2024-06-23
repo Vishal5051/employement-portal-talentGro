@@ -5,17 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Toaster } from "react-hot-toast";
-
+import { Toaster } from 'react-hot-toast';
+import { MantineProvider } from '@mantine/core';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <App />
-            <Toaster />
-        </BrowserRouter>
-    </React.StrictMode>
+  <React.StrictMode>
+    <MantineProvider>
+      <BrowserRouter>
+        <App />
+        <Toaster />
+      </BrowserRouter>
+    </MantineProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

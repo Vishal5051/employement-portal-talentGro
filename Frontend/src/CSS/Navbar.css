@@ -1,9 +1,8 @@
 .nav-container {
-  padding-left: 0.5rem;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .login-button {
@@ -55,12 +54,37 @@
   z-index: 10000;
 }
 
+.menu-dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 0.1rem 0.8rem;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
 .avatar {
   cursor: pointer;
   border-radius: 50%;
   height: 35px;
   width: 35px;
   margin-bottom: 8px;
+}
+
+.sub-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  color: black;
+}
+
+.sub-menu:hover {
+  color: var(--orange-color);
+  font-weight: 600;
 }
 
 @media (max-width: 767.98px) {

@@ -1,18 +1,21 @@
 import React from 'react';
 import logo from "../assets/TalentGro-RetinaLogo.svg";
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import "../CSS/Navbar.css"
 import { toast } from "react-hot-toast";
 import { BiLogOut } from "react-icons/bi";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { Routes } from "./Routes";
 import HamburgerMenu from './HamburgerMenu';
+import { Menu } from '@mantine/core';
+import { FaUserCircle } from 'react-icons/fa';
+import { MdDoneAll } from 'react-icons/md';
 
 const Navbar = (props) => {
   const isLoggedIn = props.isLoggedIn;
   const setIsLoggedIn = props.setIsLoggedIn;
   return (
-    <div className='w-full flex justify-between items-center px-6 h-[70px] bg-primary-color border-b-2 z-50'>
+    <div className='w-full flex justify-between items-center px-6 h-[70px] bg-primary-color border-b-2 z-20'>
       <div>
         <HamburgerMenu />
       </div>
@@ -38,7 +41,6 @@ const Navbar = (props) => {
         </ul>
       </nav>
 
-
       <div className="nav-container">
         {!isLoggedIn && (
           <NavLink to="/login">
@@ -58,23 +60,54 @@ const Navbar = (props) => {
 
         {isLoggedIn && (
           <div className='flex items-center justify-center gap-2 relative'>
-            <NavLink to="/">
-              <button
-                onClick={() => {
-                  setIsLoggedIn(false);
-                  toast.success("Logout Sucessfully");
-                }}>
-                <BiLogOut data-tooltip-id="my-logout-tooltip" size={30} color='white' />
-                <ReactTooltip
-                  id="my-logout-tooltip"
-                  place="bottom"
-                  effect="solid"
-                  className="custom-tooltip"
-                  content="Logout"
-                />
-              </button>
-            </NavLink>
-            <img src="https://api.dicebear.com/5.x/initials/svg?seed=$kushal%kumar" className= "avatar"alt="" />
+            <div>
+              <NavLink to="/">
+                <button
+                  onClick={() => {
+                    setIsLoggedIn(false);
+                    toast.success("Logout Successfully");
+                  }}>
+                  <BiLogOut data-tooltip-id="my-logout-tooltip" size={30} color='white' />
+                  <ReactTooltip
+                    id="my-logout-tooltip"
+                    place="bottom"
+                    effect="solid"
+                    className="custom-tooltip"
+                    content="Logout"
+                  />
+                </button>
+              </NavLink>
+            </div>
+
+            <div className='pr-8'>
+              <Menu trigger="hover" openDelay={100} closeDelay={400}>
+                <Menu.Target>
+                  <img src="https://api.dicebear.com/5.x/initials/svg?seed=$kushal%kumar" className='avatar' alt="" />
+                </Menu.Target>
+
+                <Menu.Dropdown className='menu-dropdown'>
+                  <Link to="/profile">
+                    <Menu.Item>
+                      <div className='sub-menu'>
+                        <FaUserCircle size={18}/>
+                        <span>My Profile</span>
+                     </div>
+                    </Menu.Item>
+                  </Link>
+
+                  <Link to="/applied">
+                    <Menu.Item>
+                      <div className='sub-menu'>
+                        <MdDoneAll size={18} />
+                        <span>Applied Jobs</span>
+                      </div>
+                      
+                    </Menu.Item>
+                  </Link>
+
+                </Menu.Dropdown>
+              </Menu>
+            </div>
           </div>
         )}
       </div>
