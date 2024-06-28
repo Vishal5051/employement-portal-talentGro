@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from "react-hot-toast";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
-import "../CSS/Login.css"
-import LoginImage from "../assets/login_Image.png"
+import "../CSS/Login.css";
+import LoginImage from "../assets/login_Image.png";
 import { FcGoogle } from "react-icons/fc";
 import { auth, provider, signInWithPopup } from "../components/firebase";
+import axios from 'axios';
+
+axios.defaults.withCredentials = true; // Setting Axios to send credentials globally
 
 export default function Login(props) {
   const setIsLoggedIn = props.setIsLoggedIn;
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get('http://localhost:2003/')
+      .then(res => {
+        if (res.data.valid) {
+          navigate('/');
+        }
+      })
+      .catch(err => console.log(err));
+  }, [navigate]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -31,17 +44,11 @@ export default function Login(props) {
       email: formData.email,
       password: formData.password,
     };
-    console.log(user);
-    try {
-      const response = await fetch("http://localhost:2003/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
 
-      const data = await response.json();
+    try {
+      const response = await axios.post("http://localhost:2003/login", user);
+
+      const data = response.data;
 
       if (data.success) {
         toast.success("Login Success");
@@ -60,12 +67,13 @@ export default function Login(props) {
       const result = await signInWithPopup(auth, provider);
       console.log(result.user);
       toast.success("Account Created");
-      navigate("/login"); // Navigate to login page after successful signup
+      navigate("/login");
     } catch (error) {
       console.error(error);
       toast.error("Failed to sign in with Google");
     }
   };
+
   return (
     <div className="login-w-full login-h-full">
       <div className="login-flex-center">

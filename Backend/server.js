@@ -1,26 +1,55 @@
-const express = require("express");
-var mysql = require('mysql2');
-const cors = require('cors');
-const path = require('path');
-const bcrypt = require('bcrypt');
-const app = express();
-require('dotenv').config();
+import express from 'express';
+import mysql from 'mysql2';
+import path from 'path';
+import bcrypt from 'bcrypt';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import bodyParser from 'body-parser';
 
-// To manage and control web security 
-app.use(cors());
-// Processing json data from incoming http request 
+dotenv.config();
+
+const app = express();
+
+// Convert __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// To manage and control web security
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["POST", "GET"],
+  credentials: true
+}));
+
+// Processing json data from incoming http request
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(session({
+  secret: 'secret', // a secret key used to encrypt the session cookie
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // Ensure this is false if not using HTTPS
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    httpOnly: true // Helps to prevent cross-site scripting (XSS) attacks
+  } // set the session cookie properties
+}));
 
 app.get("/api", (req, res) => {
-  return res.json({ message: " This is form backend" });
+  return res.json({ message: "This is from backend" });
 });
 
 app.listen(2003, () => {
-  console.log("Server Started... ");
+  console.log("Server Started...");
 });
 
-// Connection to MySQL database 
+// Connection to MySQL database
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -37,7 +66,15 @@ db.connect(err => {
   console.log("Connected to the MySQL database...");
 });
 
-//============================================ Endpoint to handle user sign-up ============================================
+app.get('/', (req, res) => {
+  if (req.session.email) {
+    return res.json({ valid: true, email: req.session.email });
+  } else {
+    return res.json({ valid: false });
+  }
+});
+
+// Endpoint to handle user sign-up
 app.post("/signup", async (req, res) => {
   const { userType, firstName, lastName, email, password } = req.body;
 
@@ -52,16 +89,14 @@ app.post("/signup", async (req, res) => {
         return res.status(500).json({ success: false, message: "Database error" });
       }
       res.json({ success: true, message: "User registered successfully" });
-      console.log(req.body);
     });
   } catch (error) {
     console.error("Error hashing password:", error);
     return res.status(500).json({ success: false, message: "Internal server error" });
   }
-
 });
 
-// ============================================ Endpoint for handling user login ============================================
+// Endpoint for handling user login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -71,21 +106,20 @@ app.post("/login", (req, res) => {
   }
 
   // Query to get user with the provided email
-  const query = "SELECT * FROM user_signin WHERE Email = ?";
-  db.query(query, [email], async (err, results) => {
+  const sql = "SELECT * FROM user_signin WHERE Email = ?";
+  db.query(sql, [email], async (err, results) => {
     if (err) {
-      console.error("Error executing query:", err);
+      console.error("Error executing sql:", err);
       return res.status(500).json({ success: false, message: "Internal server error" });
     }
 
     // If user is found
     if (results.length > 0) {
       const user = results[0];
-
-      // Compare the password with the hashed password
       const passwordMatch = await bcrypt.compare(password, user.Password);
 
       if (passwordMatch) {
+        req.session.email = user.Email; // Save the session
         return res.status(200).json({ success: true, message: "Login successful" });
       } else {
         return res.status(401).json({ success: false, message: "Invalid email or password" });
